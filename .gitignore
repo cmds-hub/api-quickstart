@@ -1,0 +1,25 @@
+# Build
+*.obj
+*.log
+*.pdb
+[Bb]in/
+[Dd]ebug/
+[Oo]bj/
+[Rr]elease/
+[Rr]eleases/
+
+# NuGet
+*.nupkg
+**/[Pp]ackages/*
+
+# Test
+[Ll]og/
+[Ll]ogs/
+[Ss]torage/
+
+# Node.js
+node_modules/
+
+# Visual Studio and VS Code
+.vs/
+.vscode/
