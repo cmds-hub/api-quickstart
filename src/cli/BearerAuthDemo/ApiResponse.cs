@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json;
 
-namespace ApiQuickstartExample
+namespace BearerAuthDemo
 {
     /// <summary>
     /// Response object containing all relevant HTTP response information.

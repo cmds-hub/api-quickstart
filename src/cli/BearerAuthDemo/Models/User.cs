@@ -1,12 +1,12 @@
 using System;
 
-namespace Example;
+namespace BearerAuthDemo;
 
-public class Learner
+public class User
 {
-    public Guid Identifier { get; set; }
+    public Guid UserIdentifier { get; set; }
+
     public string Email { get; set; }
     public string FirstName { get; set; }
     public string LastName { get; set; }
-    public Department[] Departments { get; set; }
 }

@@ -1,4 +1,4 @@
-namespace Example;
+namespace BearerAuthDemo;
 
 public class ApplicationSettings
 {

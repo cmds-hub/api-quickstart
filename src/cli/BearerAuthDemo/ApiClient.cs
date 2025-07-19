@@ -6,7 +6,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using System.Web;
 
-namespace ApiQuickstartExample
+namespace BearerAuthDemo
 {
     /// <summary>
     /// A bare-metal HTTP client that includes client secret in bearer authorization header. Uses modern HttpClient with 
@@ -15,13 +15,17 @@ namespace ApiQuickstartExample
     public partial class ApiClient : IDisposable
     {
         private readonly HttpClient _httpClient;
+
         private readonly string _baseUrl;
+
         private bool _disposed = false;
 
+        public string BaseUrl => _baseUrl;
+        
         /// <summary>
         /// Initialize the HTTP client with a client secret.
         /// </summary>
-        public ApiClient(string clientSecret, string baseUrl, string userAgent)
+        public ApiClient(string clientSecret, string baseUrl, string userAgent, int timeoutInSeconds = 30)
         {
             if (string.IsNullOrEmpty(clientSecret))
                 throw new ArgumentException("Client secret cannot be null or empty", nameof(clientSecret));
@@ -33,6 +37,8 @@ namespace ApiQuickstartExample
             _httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {clientSecret}");
 
             _httpClient.DefaultRequestHeaders.Add("User-Agent", userAgent);
+
+            SetTimeout(TimeSpan.FromSeconds(timeoutInSeconds));
         }
 
         private string BuildUrl(string endpoint)
@@ -196,6 +202,36 @@ namespace ApiQuickstartExample
             Dictionary<string, string> headers = null)
         {
             return MakeRequestAsync(HttpMethod.Get, url, null, headers, parameters);
+        }
+
+        /// <summary>
+        /// Make a POST request.
+        /// </summary>
+        public ApiResponse Post(string url, object data = null,
+            Dictionary<string, string> headers = null, Dictionary<string, string> parameters = null)
+        {
+            return MakeRequest(HttpMethod.Post, url, data, headers, parameters);
+        }
+
+        /// <summary>
+        /// Make a POST request asynchronously.
+        /// </summary>
+        public Task<ApiResponse> PostAsync(string url, object data = null,
+            Dictionary<string, string> headers = null, Dictionary<string, string> parameters = null)
+        {
+            return MakeRequestAsync(HttpMethod.Post, url, data, headers, parameters);
+        }
+
+        /// <summary>
+        /// Update the client secret used in bearer authorization.
+        /// </summary>
+        public void UpdateClientSecret(string newSecret)
+        {
+            if (string.IsNullOrEmpty(newSecret))
+                throw new ArgumentException("Client secret cannot be null or empty", nameof(newSecret));
+
+            _httpClient.DefaultRequestHeaders.Remove("Authorization");
+            _httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {newSecret}");
         }
 
         /// <summary>

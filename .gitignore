@@ -1,4 +1,4 @@
-# Build
+# Build outputs
 *.obj
 *.log
 *.pdb
@@ -7,18 +7,18 @@
 [Oo]bj/
 [Rr]elease/
 [Rr]eleases/
-
-# NuGet
-*.nupkg
-**/[Pp]ackages/*
-
-# Test
-[Ll]og/
-[Ll]ogs/
-[Ss]torage/
+[Dd]ist/
 
 # Node.js
 node_modules/
+
+# NuGet packages
+*.nupkg
+**/[Pp]ackages/
+
+# Temporary files
+[Tt]emp/
+[Tt]mp/
 
 # Visual Studio and VS Code
 .vs/
